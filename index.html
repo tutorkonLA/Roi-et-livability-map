@@ -5,6 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ดัชนีความน่าอยู่อำเภอร้อยเอ็ด</title>
     <style>
+
+        
+
+        
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            .left-panel {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+                min-height: 220px;
+                max-height: 300px;
+            }
+            .map-container {
+                width: 100%;
+                min-height: 400px;
+                position: relative;
+            }
+            .map-area {
+                padding: 1rem;
+                height: 350px;
+                min-height: 250px;
+            }
+            .info-panel {
+                position: static;
+                margin: 1rem auto;
+                min-width: 220px;
+                width: 95%;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+            .legend {
+                position: static;
+                margin: 1rem auto;
+                width: 90%;
+            }
+            .map-svg {
+                max-width: 100%;
+                max-height: 320px;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            .header-left {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .logo {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .title {
+                font-size: 1.1rem;
+            }
+            .year-selector {
+                font-size: 0.9rem;
+                padding: 0.3rem;
+            }
+            .panel-header, .panel-title, .panel-subtitle {
+                font-size: 0.95rem;
+            }
+            .ranking-item {
+                padding: 0.5rem 0.5rem;
+                font-size: 0.95rem;
+            }
+            .rank-number {
+                width: 28px;
+                height: 22px;
+                font-size: 0.95rem;
+            }
+            .info-panel {
+                padding: 1rem;
+                min-width: 160px;
+                font-size: 0.95rem;
+            }
+            .legend-gradient {
+                width: 120px;
+                height: 14px;
+            }
+            .legend-labels {
+                font-size: 0.7rem;
+            }
+            .map-area {
+                padding: 0.5rem;
+                min-height: 180px;
+                height: 220px;
+            }
+            .map-svg {
+                max-width: 100%;
+                max-height: 180px;
+                height: auto;
+            }
+        }
+
+        
+
         * {
             margin: 0;
             padding: 0;
@@ -489,7 +594,7 @@
         </div>
 
                 <div class="legend">
-                    <div class="legend-title">คะแนนความน่าอยู่</div>
+                    <div class="legend-title">ลำดับคะเเนน</div>
                     <div class="legend-gradient" id="legendGradient"></div>
                     <div class="legend-labels">
                         <span>0</span>
@@ -507,48 +612,48 @@
         // ข้อมูลตัวอย่างอำเภอร้อยเอ็ด (อัพเดทชื่อให้ถูกต้อง)
         const districtData = {
             'โพธิ์ชัย': {
-                overall: 85,
-                services: 90,
-                economy: 80,
-                environment: 85,
-                welfare: 88,
-                services_sub: { 'โรงพยาบาล': 92, 'โรงเรียน': 88, 'ขนส่ง': 90 },
-                economy_sub: { 'รายได้': 82, 'การจ้างงาน': 78, 'ธุรกิจ': 80 },
-                environment_sub: { 'ขยะ': 80, 'อากาศ': 90, 'น้ำเสีย': 85, 'ป่าไม้': 87 },
-                welfare_sub: { 'อัคคีภัย': 90, 'อุทกภัย': 85, 'จุดเสี่ยงอาชญากรรม': 88, 'อุบัติเหตุบนท้องถนน': 89 }
+                overall: 64,
+                services: 68,
+                economy: 60,
+                environment: 67,
+                welfare: 61,
+                services_sub: { 'โรงพยาบาล': 70, 'โรงเรียน': 68, 'ขนส่ง': 65 },
+                economy_sub: { 'รายได้': 60, 'การจ้างงาน': 58, 'ธุรกิจ': 62 },
+                environment_sub: { 'ขยะ': 65, 'อากาศ': 75, 'น้ำเสีย': 60, 'ป่าไม้': 70 },
+                welfare_sub: { 'อัคคีภัย': 65, 'อุทกภัย': 60, 'จุดเสี่ยงอาชญากรรม': 60, 'อุบัติเหตุบนท้องถนน': 58 }
             },
             'โพนทอง': {
-                overall: 78,
-                services: 75,
-                economy: 82,
-                environment: 77,
-                welfare: 80,
-                services_sub: { 'โรงพยาบาล': 80, 'โรงเรียน': 75, 'ขนส่ง': 70 },
-                economy_sub: { 'รายได้': 80, 'การจ้างงาน': 82, 'ธุรกิจ': 84 },
-                environment_sub: { 'ขยะ': 70, 'อากาศ': 80, 'น้ำเสีย': 75, 'ป่าไม้': 83 },
-                welfare_sub: { 'อัคคีภัย': 78, 'อุทกภัย': 80, 'จุดเสี่ยงอาชญากรรม': 79, 'อุบัติเหตุบนท้องถนน': 77 }
+                overall: 64,
+                services: 68,
+                economy: 62,
+                environment: 67,
+                welfare: 61,
+                services_sub: { 'โรงพยาบาล': 68, 'โรงเรียน': 70, 'ขนส่ง': 65 },
+                economy_sub: { 'รายได้': 62, 'การจ้างงาน': 60, 'ธุรกิจ': 63 },
+                environment_sub: { 'ขยะ': 65, 'อากาศ': 75, 'น้ำเสีย': 60, 'ป่าไม้': 70 },
+                welfare_sub: { 'อัคคีภัย': 65, 'อุทกภัย': 60, 'จุดเสี่ยงอาชญากรรม': 60, 'อุบัติเหตุบนท้องถนน': 58 }
             },
             'เกษตรวิสัย': {
-                overall: 72,
-                services: 70,
-                economy: 75,
-                environment: 71,
-                welfare: 74,
-                services_sub: { 'โรงพยาบาล': 75, 'โรงเรียน': 70, 'ขนส่ง': 68 },
-                economy_sub: { 'รายได้': 75, 'การจ้างงาน': 70, 'ธุรกิจ': 72 },
-                environment_sub: { 'ขยะ': 72, 'อากาศ': 75, 'น้ำเสีย': 70, 'ป่าไม้': 78 },
-                welfare_sub: { 'อัคคีภัย': 72, 'อุทกภัย': 74, 'จุดเสี่ยงอาชญากรรม': 73, 'อุบัติเหตุบนท้องถนน': 71 }
+                overall: 62,
+                services: 65,
+                economy: 57,
+                environment: 70,
+                welfare: 59,
+                services_sub: { 'โรงพยาบาล': 65, 'โรงเรียน': 67, 'ขนส่ง': 63 },
+                economy_sub: { 'รายได้': 58, 'การจ้างงาน': 55, 'ธุรกิจ': 58 },
+                environment_sub: { 'ขยะ': 67, 'อากาศ': 78, 'น้ำเสีย': 62, 'ป่าไม้': 75 },
+                welfare_sub: { 'อัคคีภัย': 63, 'อุทกภัย': 62, 'จุดเสี่ยงอาชญากรรม': 58, 'อุบัติเหตุบนท้องถนน': 55 }
             },
             'อาจสามารถ': {
-                overall: 68,
+                overall: 62,
                 services: 65,
-                economy: 70,
-                environment: 69,
-                welfare: 70,
-                services_sub: { 'โรงพยาบาล': 70, 'โรงเรียน': 65, 'ขนส่ง': 60 },
-                economy_sub: { 'รายได้': 70, 'การจ้างงาน': 65, 'ธุรกิจ': 68 },
-                environment_sub: { 'ขยะ': 65, 'อากาศ': 70, 'น้ำเสีย': 68, 'ป่าไม้': 72 },
-                welfare_sub: { 'อัคคีภัย': 68, 'อุทกภัย': 70, 'จุดเสี่ยงอาชญากรรม': 69, 'อุบัติเหตุบนท้องถนน': 67 }
+                economy: 59,
+                environment: 67,
+                welfare: 59,
+                services_sub: { 'โรงพยาบาล': 68, 'โรงเรียน': 66, 'ขนส่ง': 62 },
+                economy_sub: { 'รายได้': 65, 'การจ้างงาน': 58, 'ธุรกิจ': 60 },
+                environment_sub: { 'ขยะ': 65, 'อากาศ': 75, 'น้ำเสีย': 60, 'ป่าไม้': 68 },
+                welfare_sub: { 'อัคคีภัย': 62, 'อุทกภัย': 60, 'จุดเสี่ยงอาชญากรรม': 58, 'อุบัติเหตุบนท้องถนน': 57 }
             },
             'จตุรพักตรพิมาน': {
                 overall: 65,
@@ -584,15 +689,15 @@
                 welfare_sub: { 'อัคคีภัย': 82, 'อุทกภัย': 81, 'จุดเสี่ยงอาชญากรรม': 80, 'อุบัติเหตุบนท้องถนน': 79 }
             },
             'เมืองร้อยเอ็ด': {
-                overall: 95,
-                services: 98,
-                economy: 92,
-                environment: 95,
-                welfare: 94,
-                services_sub: { 'โรงพยาบาล': 98, 'โรงเรียน': 95, 'ขนส่ง': 97 },
-                economy_sub: { 'รายได้': 93, 'การจ้างงาน': 90, 'ธุรกิจ': 91 },
-                environment_sub: { 'ขยะ': 95, 'อากาศ': 98, 'น้ำเสีย': 94, 'ป่าไม้': 96 },
-                welfare_sub: { 'อัคคีภัย': 95, 'อุทกภัย': 94, 'จุดเสี่ยงอาชญากรรม': 93, 'อุบัติเหตุบนท้องถนน': 92 }
+                overall: 67,
+                services: 80,
+                economy: 68,
+                environment: 58,
+                welfare: 63,
+                services_sub: { 'โรงพยาบาล': 85, 'โรงเรียน': 80, 'ขนส่ง': 75 },
+                economy_sub: { 'รายได้': 70, 'การจ้างงาน': 65, 'ธุรกิจ': 70 },
+                environment_sub: { 'ขยะ': 60, 'อากาศ': 70, 'น้ำเสีย': 55, 'ป่าไม้': 50 },
+                welfare_sub: { 'อัคคีภัย': 70, 'อุทกภัย': 60, 'จุดเสี่ยงอาชญากรรม': 65, 'อุบัติเหตุบนท้องถนน': 60 }
             },
             'ธวัชบุรี': {
                 overall: 75,
